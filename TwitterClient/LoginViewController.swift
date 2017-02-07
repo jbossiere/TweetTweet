@@ -27,10 +27,12 @@ class LoginViewController: UIViewController {
         
         // clears keychains of preivous sessions
         twitterClient?.deauthorize()
-        twitterClient?.fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: nil, scope: nil, success: {(requestToken: BDBOAuth1Credential?) -> Void in
+        twitterClient?.fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string: "twitterclient://oauth"), scope: nil, success: {(requestToken: BDBOAuth1Credential?) -> Void in
             print("I got a token.")
             
-            let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken?.token)")!
+            print("https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken!.token!)")
+            
+            let url = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken!.token!)")!
             UIApplication.shared.open(url)
             
         }, failure: {(error: Error?) -> Void in
