@@ -44,42 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print(url.description)
-        let requestToken = BDBOAuth1Credential(queryString: url.query)
-        let twitterClient = BDBOAuth1SessionManager(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "exMezX94UWh5F4I5IiimAdA5z", consumerSecret: "vVBIu6X7zg1nFMkbEr3yDTyzEsxj2Cismo6L8Go93cYxc7hqUk")
-        twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
-            print("I got the access token")
-            
-            twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-//                print("account \(response)")
-                let userDictionary = response as? NSDictionary
-
-                let user = User(dictionary: userDictionary!)
-                
-                print("user: \(user.name)")
-                print("screenname: \(user.screenname)")
-                print("profile url: \(user.profileUrl)")
-                print("description: \(user.tagline)")
-                
-            }, failure: { (task: URLSessionDataTask?, error: Error) in
-                print("error: \(error.localizedDescription)")
-            })
-            
-            twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-                let dictionaries = response as? [NSDictionary]
-                
-                let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries!)
-                
-                for tweet in tweets {
-                    print("\(tweet.text)")
-                }
-                
-            }, failure: { (task: URLSessionDataTask?, error: Error) in
-                print("error \(error.localizedDescription)")
-            })
-            
-        }, failure: { (error:Error?) in
-            print("error: \(error?.localizedDescription)")
-        })
+        TwitterClient.sharedInstance?.handleOpenUrl(url: url)
         
         return true
     }
