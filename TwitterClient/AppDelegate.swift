@@ -49,19 +49,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
             print("I got the access token")
             
-            twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (response: Any?) in
+            twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
 //                print("account \(response)")
-                let user = response as? NSDictionary
-                print("user: \(user?["name"])")
+                let userDictionary = response as? NSDictionary
+
+                let user = User(dictionary: userDictionary!)
+                
+                print("user: \(user.name)")
+                print("screenname: \(user.screenname)")
+                print("profile url: \(user.profileUrl)")
+                print("description: \(user.tagline)")
+                
             }, failure: { (task: URLSessionDataTask?, error: Error) in
                 print("error: \(error.localizedDescription)")
             })
             
-            twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (response: Any?) in
-                let tweets = response as? [NSDictionary]
-                for tweet in tweets! {
-                    print("\(tweet["text"]!)")
+            twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+                let dictionaries = response as? [NSDictionary]
+                
+                let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries!)
+                
+                for tweet in tweets {
+                    print("\(tweet.text)")
                 }
+                
             }, failure: { (task: URLSessionDataTask?, error: Error) in
                 print("error \(error.localizedDescription)")
             })
