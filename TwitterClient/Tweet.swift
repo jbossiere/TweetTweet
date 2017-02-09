@@ -31,9 +31,7 @@ class Tweet: NSObject {
             let timestamp = formatter.date(from: timestampString)
             let calendar = Calendar.current
             hour = calendar.component(.hour, from: timestamp!)
-            print("hour: \(hour)")
         }
-//        print(timestamp!)
         
         let profileUrlString = dictionary["profile_image_url_https"] as? String
         if let profileUrlString = profileUrlString {
@@ -42,7 +40,6 @@ class Tweet: NSObject {
         
         let user = dictionary["user"] as? NSDictionary
         if let user = user {
-//            print(user)
             
             name = user["name"] as? String
             screenname = user["screen_name"] as? String

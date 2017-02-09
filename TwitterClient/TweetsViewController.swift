@@ -18,6 +18,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshAction(refreshControl :)), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -35,6 +39,19 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         })
 
         // Do any additional setup after loading the view.
+    }
+    
+    func refreshAction(refreshControl: UIRefreshControl) {
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+        }, failure: { (error: Error) in
+            print(error.localizedDescription)
+        })
+        refreshControl.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {

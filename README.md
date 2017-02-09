@@ -2,7 +2,7 @@
 
 **TweetTweet** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **9** hours spent in total
+Time spent: **9.5** hours spent in total
 
 ## User Stories
 
@@ -18,7 +18,7 @@ The following **optional** features are implemented:
 
 - [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 - [ ] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
-- [ ] User can pull to refresh.
+- [X] User can pull to refresh.
 
 The following **additional** features are implemented:
 
