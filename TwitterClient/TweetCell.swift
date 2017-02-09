@@ -14,6 +14,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
+    @IBOutlet weak var timestampLabel: UILabel!
     
     var tweet: Tweet! {
         didSet {
@@ -21,6 +22,12 @@ class TweetCell: UITableViewCell {
             userImageView.setImageWith(tweet.profileUrl!)
             nameLabel.text = tweet.name
             screenNameLabel.text = "@\(tweet.screenname!)"
+            
+            let date = NSDate()
+            let calendar = NSCalendar.current
+            let currentHour = calendar.component(.hour, from: date as Date)
+            print("currentHour: \(currentHour)")
+            timestampLabel.text = "• \(currentHour - tweet.hour!)h"
         }
     }
     var user: User! {
