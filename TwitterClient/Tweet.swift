@@ -11,7 +11,7 @@ import UIKit
 class Tweet: NSObject {
     
     var text: String?
-    var hour: Int?
+    var combinedTimestamp: String?
     var retweetCount: Int = 0
     var favoritesCount: Int  = 0
     var profileUrl: URL?
@@ -30,7 +30,10 @@ class Tweet: NSObject {
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
             let timestamp = formatter.date(from: timestampString)
             let calendar = Calendar.current
-            hour = calendar.component(.hour, from: timestamp!)
+            let day = calendar.component(.day, from: timestamp!)
+            let year = calendar.component(.year, from: timestamp!)
+            let month = calendar.component(.month, from: timestamp!)
+            combinedTimestamp = "\(month)/\(day)/\(year)"
         }
         
         let profileUrlString = dictionary["profile_image_url_https"] as? String

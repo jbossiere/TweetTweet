@@ -26,7 +26,7 @@ class TweetCell: UITableViewCell {
             let date = NSDate()
             let calendar = NSCalendar.current
             let currentHour = calendar.component(.hour, from: date as Date)
-            timestampLabel.text = "• \(currentHour - tweet.hour!)h"
+            timestampLabel.text = "• \(tweet.combinedTimestamp!)"
         }
     }
     var user: User! {
