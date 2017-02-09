@@ -7,19 +7,29 @@
 //
 
 import UIKit
+import MBProgressHUD
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var tweets: [Tweet]!
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
-            for tweet in tweets {
-                print(tweet.text)
-            }
+            self.tableView.reloadData()
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
         }, failure: { (error: Error) in
             print(error.localizedDescription)
         })
@@ -33,7 +43,27 @@ class TweetsViewController: UIViewController {
     }
     
     @IBAction func onLogoutButton(_ sender: Any) {
-        TwitterClient.sharedInstance?.logout() 
+        TwitterClient.sharedInstance?.logout()
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tweets != nil {
+            return tweets!.count
+        } else {
+            return 0
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        
+        cell.tweet = tweets[indexPath.row]
+        
+        return cell
     }
 
     /*
