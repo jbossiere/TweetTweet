@@ -41,6 +41,19 @@ class TweetCell: UITableViewCell {
                 favorNumLabel.text = "\(tweet.favoritesCount)"
             }
             
+            // Set favorite and retween icon depending on whether it has been favorited
+            // or retweeted
+            if tweet.favorited == true {
+                self.favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon-red"), for: UIControlState.normal)
+            } else {
+                self.favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon"), for: UIControlState.normal)
+            }
+            if tweet.retweeted == true {
+                self.retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon-green"), for: UIControlState.normal)
+            } else {
+                self.retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon"), for: UIControlState.normal)
+            }
+            
             tweetId = tweet.id
         }
     }
@@ -62,6 +75,15 @@ class TweetCell: UITableViewCell {
         TwitterClient.sharedInstance?.favoriteTweet(success: { (tweet: Tweet) in
             self.favorNumLabel.text = "\(tweet.favoritesCount)"
             self.favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon-red"), for: UIControlState.normal)
+        }, failure: { (error: Error) in
+            self.unfavoriteTweet()
+        }, tweetId: tweetId!)
+    }
+    
+    func unfavoriteTweet() {
+        TwitterClient.sharedInstance?.unfavoriteTweet(success: { (tweet: Tweet) in
+            self.favorNumLabel.text = "\(tweet.favoritesCount)"
+            self.favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon"), for: UIControlState.normal)
         }, failure: { (error: Error) in
             print("error: \(error.localizedDescription)")
         }, tweetId: tweetId!)
