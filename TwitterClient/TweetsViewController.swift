@@ -63,9 +63,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         TwitterClient.sharedInstance?.logout()
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
+//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+//        tableView.deselectRow(at: indexPath, animated: true)
+//    }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tweets != nil {
@@ -80,8 +80,11 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         
         cell.tweet = tweets[indexPath.row]
         
+        cell.selectionStyle = .none
+        
         return cell
     }
+
 
     /*
     // MARK: - Navigation

@@ -17,12 +17,15 @@ class Tweet: NSObject {
     var profileUrl: URL?
     var name: String?
     var screenname: String?
+    var retweeted: Bool?
+    var favorited: Bool?
+    var id: Int?
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
         
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-        favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
+        favoritesCount = (dictionary["favorite_count"] as? Int) ?? 0
         
         let timestampString = dictionary["created_at"] as? String
         if let timestampString = timestampString {
@@ -49,7 +52,16 @@ class Tweet: NSObject {
             
             let profileUrlString = user["profile_image_url_https"] as? String
             profileUrl = URL(string: profileUrlString!)
+            
+//            favoritesCount = (user["favourites_count"] as? Int) ?? 0
+//            print(favoritesCount)
         }
+        
+        retweeted = dictionary["retweeted"] as? Bool
+        favorited = dictionary["favorited"] as? Bool
+        
+        id = dictionary["id"] as? Int
+        
     }
     
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {

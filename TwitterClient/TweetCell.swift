@@ -15,6 +15,12 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var retweetNumLabel: UILabel!
+    @IBOutlet weak var favorNumLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    
+    var tweetId: Int?
     
     var tweet: Tweet! {
         didSet {
@@ -27,14 +33,18 @@ class TweetCell: UITableViewCell {
             let calendar = NSCalendar.current
             let currentHour = calendar.component(.hour, from: date as Date)
             timestampLabel.text = "• \(tweet.combinedTimestamp!)"
-        }
-    }
-    var user: User! {
-        didSet {
             
+            if tweet.retweetCount != 0 {
+                retweetNumLabel.text = "\(tweet.retweetCount)"
+            }
+            if tweet.favoritesCount != 0 {
+                favorNumLabel.text = "\(tweet.favoritesCount)"
+            }
+            
+            tweetId = tweet.id
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         userImageView.layer.cornerRadius = 5
@@ -48,4 +58,22 @@ class TweetCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func onFavorite(_ sender: Any) {
+        TwitterClient.sharedInstance?.favoriteTweet(success: { (tweet: Tweet) in
+            self.favorNumLabel.text = "\(tweet.favoritesCount)"
+            self.favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon-red"), for: UIControlState.normal)
+        }, failure: { (error: Error) in
+            print("error: \(error.localizedDescription)")
+        }, tweetId: tweetId!)
+    }
+    
+    @IBAction func onRT(_ sender: Any) {
+        TwitterClient.sharedInstance?.retweetTweet(success: { (tweet: Tweet) in
+            print("retweeted 1")
+            self.retweetNumLabel.text = "\(tweet.retweetCount)"
+            self.retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon-green"), for: UIControlState.normal)
+        }, failure: { (error: Error) in
+            print("error: \(error.localizedDescription)")
+        }, tweetId: tweetId!)
+    }
 }

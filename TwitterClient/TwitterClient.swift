@@ -15,6 +15,8 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
+    var tweets: [Tweet]!
+    var id: Int?
     
     func login(success: @escaping () -> (), failure: @escaping (Error) -> ()) {
         loginSuccess = success
@@ -57,19 +59,21 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    // returns the authenticated user's home timeline
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let dictionaries = response as? [NSDictionary]
             
-            let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries!)
+            self.tweets = Tweet.tweetsWithArray(dictionaries: dictionaries!)
 
-            success(tweets)
+            success(self.tweets!)
             
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             failure(error)
         })
     }
     
+    // Gets the current user
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
@@ -81,5 +85,33 @@ class TwitterClient: BDBOAuth1SessionManager {
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             failure(error)
         })
+    }
+    
+    // favorites a tweet on behalf of the authenticated user
+    func favoriteTweet(success: @escaping (Tweet) -> (), failure: @escaping (Error) -> (), tweetId: Int) {
+        
+        post("1.1/favorites/create.json", parameters: ["id": tweetId], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            print("favorited")
+            let dicionary = response as! NSDictionary
+            let tweet = Tweet(dictionary: dicionary)
+            success(tweet)
+            
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
+    func retweetTweet(success: @escaping (Tweet) -> (), failure: @escaping (Error) -> (), tweetId: Int) {
+        post("1.1/statuses/retweet/\(tweetId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            print("retweeted")
+            let dictionary = response as! NSDictionary
+            let tweet = Tweet(dictionary: dictionary)
+            success(tweet)
+            
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
     }
 }
