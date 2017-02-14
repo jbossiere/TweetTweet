@@ -88,7 +88,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     // favorites a tweet on behalf of the authenticated user
-    func favoriteTweet(success: @escaping (Tweet) -> (), failure: @escaping (Error) -> (), tweetId: Int) {
+    func favoriteTweet(success: @escaping (Tweet) -> (), failure: @escaping (Error) -> (), tweetId: String) {
         
         post("1.1/favorites/create.json", parameters: ["id": tweetId], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
@@ -101,7 +101,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func unfavoriteTweet(success: @escaping (Tweet) -> (), failure: @escaping (Error) -> (), tweetId: Int) {
+    func unfavoriteTweet(success: @escaping (Tweet) -> (), failure: @escaping (Error) -> (), tweetId: String) {
         
         post("1.1/favorites/destroy.json", parameters: ["id": tweetId], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
@@ -114,15 +114,42 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
-    func retweetTweet(success: @escaping (Tweet) -> (), failure: @escaping (Error) -> (), tweetId: Int) {
+    func retweetTweet(success: @escaping (Tweet) -> (), failure: @escaping (Error) -> (), tweetId: String) {
         post("1.1/statuses/retweet/\(tweetId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
             let dictionary = response as! NSDictionary
             let tweet = Tweet(dictionary: dictionary)
+            tweet.retweeted = true
             success(tweet)
             
         }) { (task: URLSessionDataTask?, error: Error) in
             failure(error)
         }
+    }
+    
+    func unretweetTweet(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var originalTweetId = ""
+        print("can I unretweet? \(tweet.retweeted)")
+        if tweet.retweeted == false {
+            print("error: cannot unretweet tweet that has not been retweeted")
+        } else {
+            print(tweet.retweeted_status)
+            if tweet.retweeted_status == nil {
+                originalTweetId = tweet.id_str!
+            } else {
+                originalTweetId = (tweet.retweeted_status?.id_str!)!
+            }
+        }
+        
+        print("https://api.twitter.com/1.1/statuses/show/\(originalTweetId)json?include_my_retweet=1")
+        //TODO: FIGURE OUT WHY THE GET IS FAILING
+//        let fullTweet = get("https://api.twitter.com/1.1/statuses/show/\(originalTweetId)json?include_my_retweet=1", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+////            print(response)
+//            let current_user_retweet = response
+//            print("current user retweet: \(current_user_retweet)")
+////            let retweetId = fullTweet.current_user_retweet.id_str
+//        }) { (task: URLSessionDataTask?, error: Error) in
+//            failure(error)
+//        }
     }
 }

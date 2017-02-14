@@ -18,8 +18,10 @@ class Tweet: NSObject {
     var name: String?
     var screenname: String?
     var retweeted: Bool?
+    var retweeted_status: Tweet?
     var favorited: Bool?
     var id: Int?
+    var id_str: String?
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
@@ -58,9 +60,14 @@ class Tweet: NSObject {
         }
         
         retweeted = dictionary["retweeted"] as? Bool
+        retweeted_status = dictionary["retweeted_status"] as? Tweet // Not a field so it's returning nil
+        print(dictionary)
+        print("retweeted_status: \(retweeted_status)")
         favorited = dictionary["favorited"] as? Bool
         
         id = dictionary["id"] as? Int
+        id_str = dictionary["id_str"] as? String
+
         
     }
     

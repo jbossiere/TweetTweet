@@ -20,7 +20,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
     
-    var tweetId: Int?
+    var tweetId: String?
     
     var tweet: Tweet! {
         didSet {
@@ -54,7 +54,7 @@ class TweetCell: UITableViewCell {
                 self.retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon"), for: UIControlState.normal)
             }
             
-            tweetId = tweet.id
+            tweetId = tweet.id_str
         }
     }
 
@@ -95,7 +95,15 @@ class TweetCell: UITableViewCell {
             self.retweetNumLabel.text = "\(tweet.retweetCount)"
             self.retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon-green"), for: UIControlState.normal)
         }, failure: { (error: Error) in
-            print("error: \(error.localizedDescription)")
+            self.unretweetTweet()
         }, tweetId: tweetId!)
+    }
+    
+    func unretweetTweet() {
+        TwitterClient.sharedInstance?.unretweetTweet(tweet: self.tweet, success: { (tweet: Tweet) in
+//            <#code#>
+        }, failure: { (error: Error) in
+            print("error: \(error)")
+        })
     }
 }
