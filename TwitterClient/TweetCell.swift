@@ -29,10 +29,7 @@ class TweetCell: UITableViewCell {
             nameLabel.text = tweet.name
             screenNameLabel.text = "@\(tweet.screenname!)"
             
-            let date = NSDate()
-            let calendar = NSCalendar.current
-            let currentHour = calendar.component(.hour, from: date as Date)
-            timestampLabel.text = "• \(tweet.combinedTimestamp!)"
+            timestampLabel.text = "• \(tweet.timestampDate!)"
             
             if tweet.retweetCount != 0 {
                 retweetNumLabel.text = "\(tweet.retweetCount)"
@@ -91,7 +88,6 @@ class TweetCell: UITableViewCell {
     
     @IBAction func onRT(_ sender: Any) {
         TwitterClient.sharedInstance?.retweetTweet(success: { (tweet: Tweet) in
-            print("retweeted 1")
             self.retweetNumLabel.text = "\(tweet.retweetCount)"
             self.retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon-green"), for: UIControlState.normal)
         }, failure: { (error: Error) in

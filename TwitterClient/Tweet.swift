@@ -11,7 +11,9 @@ import UIKit
 class Tweet: NSObject {
     
     var text: String?
-    var combinedTimestamp: String?
+    var timestampDate: String?
+    var timestampTime: String?
+    var timestampHour: Int?
     var retweetCount: Int = 0
     var favoritesCount: Int  = 0
     var profileUrl: URL?
@@ -22,6 +24,7 @@ class Tweet: NSObject {
     var favorited: Bool?
     var id: Int?
     var id_str: String?
+    
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
@@ -36,9 +39,21 @@ class Tweet: NSObject {
             let timestamp = formatter.date(from: timestampString)
             let calendar = Calendar.current
             let day = calendar.component(.day, from: timestamp!)
-            let year = calendar.component(.year, from: timestamp!)
+            let fullYear = calendar.component(.year, from: timestamp!)
+            let year = fullYear - 2000
             let month = calendar.component(.month, from: timestamp!)
-            combinedTimestamp = "\(month)/\(day)/\(year)"
+            timestampHour = calendar.component(.hour, from: timestamp!)
+            if timestampHour! > 12 {
+                let hour = timestampHour! - 12
+                timestampHour = hour
+            }
+            let minutes = calendar.component(.minute, from: timestamp!)
+            if minutes < 10 {
+                timestampTime = "\(timestampHour!):0\(minutes)"
+            } else {
+                timestampTime = "\(timestampHour!):\(minutes)"
+            }
+            timestampDate = "\(month)/\(day)/\(year)"
         }
         
         let profileUrlString = dictionary["profile_image_url_https"] as? String
@@ -55,14 +70,12 @@ class Tweet: NSObject {
             let profileUrlString = user["profile_image_url_https"] as? String
             profileUrl = URL(string: profileUrlString!)
             
-//            favoritesCount = (user["favourites_count"] as? Int) ?? 0
-//            print(favoritesCount)
         }
         
         retweeted = dictionary["retweeted"] as? Bool
         retweeted_status = dictionary["retweeted_status"] as? Tweet // Not a field so it's returning nil
-        print(dictionary)
-        print("retweeted_status: \(retweeted_status)")
+//        print(dictionary)
+//        print("retweeted_status: \(retweeted_status)")
         favorited = dictionary["favorited"] as? Bool
         
         id = dictionary["id"] as? Int
