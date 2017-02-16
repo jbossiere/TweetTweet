@@ -29,7 +29,36 @@ class TweetCell: UITableViewCell {
             nameLabel.text = tweet.name
             screenNameLabel.text = "@\(tweet.screenname!)"
             
-            timestampLabel.text = "• \(tweet.timestampDate!)"
+//            timestampLabel.text = "• \(tweet.timestampDate!)"
+            let date = Date()
+            let calendar = Calendar.current
+            let year = calendar.component(.year, from: date)
+            let month = calendar.component(.month, from: date)
+            let day = calendar.component(.day, from: date)
+            let hour = calendar.component(.hour, from: date)
+            let minute = calendar.component(.minute, from: date)
+            
+            if tweet.year != year {
+                timestampLabel.text = "• \(tweet.month!)/\(tweet.day!)/\(tweet.year!)"
+            } else {
+                if tweet.month != month {
+                    timestampLabel.text = "• \(tweet.month!)/\(tweet.day!)/\(tweet.year!)"
+                } else {
+                    if tweet.day != day {
+                        if day - tweet.day! < 7 {
+                            timestampLabel.text = "• \(day - tweet.day!)d"
+                        } else {
+                            timestampLabel.text = "• \(tweet.month!)/\(tweet.day!)/\(tweet.year!)"
+                        }
+                    } else {
+                        if tweet.hour != hour {
+                            timestampLabel.text = "• \(hour - tweet.hour!)h"
+                        } else {
+                            timestampLabel.text = "• \(minute - tweet.minute!)m"
+                        }
+                    }
+                }
+            }
             
             if tweet.retweetCount != 0 {
                 retweetNumLabel.text = "\(tweet.retweetCount)"
@@ -38,7 +67,7 @@ class TweetCell: UITableViewCell {
                 favorNumLabel.text = "\(tweet.favoritesCount)"
             }
             
-            // Set favorite and retween icon depending on whether it has been favorited
+            // Set favorite and retweet icon depending on whether it has been favorited
             // or retweeted
             if tweet.favorited == true {
                 self.favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon-red"), for: UIControlState.normal)

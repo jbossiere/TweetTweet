@@ -10,20 +10,25 @@ import UIKit
 
 class Tweet: NSObject {
     
+    var name: String?
+    var screenname: String?
     var text: String?
     var timestampDate: String?
     var timestampTime: String?
-    var timestampHour: Int?
     var retweetCount: Int = 0
     var favoritesCount: Int  = 0
     var profileUrl: URL?
-    var name: String?
-    var screenname: String?
     var retweeted: Bool?
     var retweeted_status: Tweet?
     var favorited: Bool?
     var id: Int?
     var id_str: String?
+    
+    var year: Int?
+    var month: Int?
+    var day: Int?
+    var hour: Int?
+    var minute: Int?
     
     
     init(dictionary: NSDictionary) {
@@ -38,22 +43,26 @@ class Tweet: NSObject {
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
             let timestamp = formatter.date(from: timestampString)
             let calendar = Calendar.current
-            let day = calendar.component(.day, from: timestamp!)
-            let fullYear = calendar.component(.year, from: timestamp!)
-            let year = fullYear - 2000
-            let month = calendar.component(.month, from: timestamp!)
-            timestampHour = calendar.component(.hour, from: timestamp!)
-            if timestampHour! > 12 {
-                let hour = timestampHour! - 12
-                timestampHour = hour
+            day = calendar.component(.day, from: timestamp!)
+            year = calendar.component(.year, from: timestamp!)
+//            let year = fullYear - 2000
+            month = calendar.component(.month, from: timestamp!)
+            hour = calendar.component(.hour, from: timestamp!)
+            minute = calendar.component(.minute, from: timestamp!)
+            var timeEnding = "AM"
+            var timestampHour = calendar.component(.hour, from: timestamp!)
+            if timestampHour > 12 {
+                let hourDifference = timestampHour - 12
+                timestampHour = hourDifference
+                timeEnding = "PM"
             }
-            let minutes = calendar.component(.minute, from: timestamp!)
-            if minutes < 10 {
-                timestampTime = "\(timestampHour!):0\(minutes)"
+            let timestampMinutes = calendar.component(.minute, from: timestamp!)
+            if timestampMinutes < 10 {
+                timestampTime = "\(timestampHour):0\(timestampMinutes) \(timeEnding)"
             } else {
-                timestampTime = "\(timestampHour!):\(minutes)"
+                timestampTime = "\(timestampHour):\(timestampMinutes) \(timeEnding)"
             }
-            timestampDate = "\(month)/\(day)/\(year)"
+            timestampDate = "\(month!)/\(day!)/\(year!)"
         }
         
         let profileUrlString = dictionary["profile_image_url_https"] as? String
