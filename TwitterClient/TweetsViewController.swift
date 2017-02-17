@@ -63,10 +63,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         TwitterClient.sharedInstance?.logout()
     }
     
-//    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-//        tableView.deselectRow(at: indexPath, animated: true)
-//    }
-    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tweets != nil {
             return tweets!.count
@@ -77,7 +73,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
-        
+                
         cell.tweet = tweets[indexPath.row]
         
         cell.selectionStyle = .none
@@ -91,13 +87,24 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
 
 //    In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        let cell = sender as! UITableViewCell
-        let indexPath = tableView.indexPath(for: cell)
-        let tweet = tweets[indexPath!.row]
+        if segue.identifier == "detailsSegue" {
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPath(for: cell)
+            let tweet = tweets[indexPath!.row]
+            
+            let tweetDetailViewController = segue.destination as! TweetDetailViewController
+            tweetDetailViewController.tweet = tweet
         
-        let detailViewController = segue.destination as! TweetDetailViewController
-        detailViewController.tweet = tweet
+        } else {
+            let button = sender as! UIButton
+            let tableViewContents = button.superview!
+            let cell = tableViewContents.superview! as! TweetCell
+            let indexPath = tableView.indexPath(for: cell)
+            let tweet = tweets[indexPath!.row]
+            
+            let profileViewController = segue.destination as! ProfileViewController
+            profileViewController.tweet = tweet
+        }
     }
     
 

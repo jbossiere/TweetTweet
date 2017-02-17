@@ -29,7 +29,6 @@ class TweetCell: UITableViewCell {
             nameLabel.text = tweet.name
             screenNameLabel.text = "@\(tweet.screenname!)"
             
-//            timestampLabel.text = "• \(tweet.timestampDate!)"
             let date = Date()
             let calendar = Calendar.current
             let year = calendar.component(.year, from: date)
@@ -88,15 +87,17 @@ class TweetCell: UITableViewCell {
         super.awakeFromNib()
         userImageView.layer.cornerRadius = 5
         userImageView.clipsToBounds = true
+        
 
     }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
-
+   
     @IBAction func onFavorite(_ sender: Any) {
         TwitterClient.sharedInstance?.favoriteTweet(success: { (tweet: Tweet) in
             self.favorNumLabel.text = "\(tweet.favoritesCount)"

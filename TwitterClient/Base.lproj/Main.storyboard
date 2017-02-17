@@ -76,8 +76,9 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3wd-Fb-Pqz">
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3wd-Fb-Pqz">
                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="Bac-Wn-CTE"/>
                                                         <constraint firstAttribute="height" constant="45" id="peo-KV-Z5O"/>
@@ -115,7 +116,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElC-o3-0fg">
-                                                    <rect key="frame" x="155" y="94.5" width="0.0" height="0.0"/>
+                                                    <rect key="frame" x="155" y="94" width="0.0" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -132,7 +133,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4x-Je-Grb">
-                                                    <rect key="frame" x="145" y="82" width="25" height="25"/>
+                                                    <rect key="frame" x="145" y="81" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="Ylm-7C-N6l"/>
                                                         <constraint firstAttribute="height" constant="25" id="kRi-GE-CEu"/>
@@ -140,6 +141,13 @@
                                                     <state key="normal" image="retweet-icon"/>
                                                     <connections>
                                                         <action selector="onRT:" destination="AmY-gJ-dFG" eventType="touchUpInside" id="mBU-1V-k37"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lo-pc-ZQW">
+                                                    <rect key="frame" x="8" y="8" width="45" height="45"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <segue destination="hBZ-iL-q7U" kind="show" identifier="profileSegue" id="099-bY-o3C"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -183,13 +191,14 @@
                                             <outlet property="timestampLabel" destination="8Dr-TG-TSw" id="6JW-W4-MaG"/>
                                             <outlet property="tweetTextLabel" destination="gry-Xq-7wf" id="a9Q-78-93l"/>
                                             <outlet property="userImageView" destination="3wd-Fb-Pqz" id="RV5-iU-5IT"/>
-                                            <segue destination="gh3-bo-Ibc" kind="show" id="O9Z-bK-3GL"/>
+                                            <segue destination="gh3-bo-Ibc" kind="show" identifier="detailsSegue" id="O9Z-bK-3GL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Tda-eI-IWo" secondAttribute="bottom" id="HUP-OT-MUU"/>
                             <constraint firstItem="Tda-eI-IWo" firstAttribute="top" secondItem="kWf-kz-mi1" secondAttribute="bottom" id="ZHb-OT-PsL"/>
@@ -227,6 +236,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hHF-FR-1uC">
                                 <rect key="frame" x="8" y="8" width="45" height="45"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="JNJ-PY-6un"/>
                                     <constraint firstAttribute="width" constant="45" id="cR2-T3-uef"/>
@@ -300,6 +310,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ioD-Hk-GcH" secondAttribute="trailing" constant="8" id="2rg-Sv-zPR"/>
                             <constraint firstItem="hHF-FR-1uC" firstAttribute="top" secondItem="Gwv-Vn-6ab" secondAttribute="bottom" constant="8" id="5iw-Us-c42"/>
@@ -332,6 +343,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cz0-92-nYw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2296.8000000000002" y="123.68815592203899"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="3wK-Nt-L9o">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="hBZ-iL-q7U" customClass="ProfileViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="izD-H1-L8a"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jl0-VT-DQo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kAC-SX-sWq">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cMv-Z1-mRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1585" y="888"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EAZ-NE-naF">
