@@ -14,10 +14,10 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("hello, \(tweet.name)")
-        let user = tweet.user
+        print("hello, \(tweet.name!)")
+        let user = tweet.user!
         print("user: \(user)")
-        let name = user?["name"] as? String
+        let name = user["name"] as? String
         print("hello hellow, \(name)")
 
         // Do any additional setup after loading the view.

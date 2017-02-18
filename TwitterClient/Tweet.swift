@@ -44,10 +44,9 @@ class Tweet: NSObject {
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
             let timestamp = formatter.date(from: timestampString)
             let calendar = Calendar.current
-            day = calendar.component(.day, from: timestamp!)
             year = calendar.component(.year, from: timestamp!)
-//            let year = fullYear - 2000
             month = calendar.component(.month, from: timestamp!)
+            day = calendar.component(.day, from: timestamp!)
             hour = calendar.component(.hour, from: timestamp!)
             minute = calendar.component(.minute, from: timestamp!)
             var timeEnding = "AM"
@@ -91,7 +90,7 @@ class Tweet: NSObject {
         id_str = dictionary["id_str"] as? String
         
         user = dictionary["user"] as? NSDictionary
-        print("yooo, \(user?["name"])")
+        print("user: \(user!)")
 
         
     }
