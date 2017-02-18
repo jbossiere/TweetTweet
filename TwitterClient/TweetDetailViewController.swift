@@ -15,6 +15,8 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var favNumLabel: UILabel!
+    @IBOutlet weak var retweetNumLabel: UILabel!
     
     var tweet: Tweet!
     
@@ -28,6 +30,10 @@ class TweetDetailViewController: UIViewController {
         usernameLabel.text = tweet.name
         screennameLabel.text = "@\(tweet.screenname!)"
         timestampLabel.text = "\(tweet.timestampDate!), \(tweet.timestampTime!)"
+        
+        favNumLabel.text = "\(tweet.favoritesCount)"
+        retweetNumLabel.text = "\(tweet.retweetCount)"
+        
         
     }
 

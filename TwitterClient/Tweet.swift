@@ -23,6 +23,7 @@ class Tweet: NSObject {
     var favorited: Bool?
     var id: Int?
     var id_str: String?
+    var user: NSDictionary?
     
     var year: Int?
     var month: Int?
@@ -70,7 +71,7 @@ class Tweet: NSObject {
             profileUrl = URL(string: profileUrlString)
         }
         
-        let user = dictionary["user"] as? NSDictionary
+        var user = dictionary["user"] as? NSDictionary
         if let user = user {
             
             name = user["name"] as? String
@@ -83,12 +84,14 @@ class Tweet: NSObject {
         
         retweeted = dictionary["retweeted"] as? Bool
         retweeted_status = dictionary["retweeted_status"] as? Tweet // Not a field so it's returning nil
-//        print(dictionary)
-//        print("retweeted_status: \(retweeted_status)")
+
         favorited = dictionary["favorited"] as? Bool
         
         id = dictionary["id"] as? Int
         id_str = dictionary["id_str"] as? String
+        
+        user = dictionary["user"] as? NSDictionary
+        print("yooo, \(user?["name"])")
 
         
     }
