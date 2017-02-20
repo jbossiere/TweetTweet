@@ -12,7 +12,14 @@ class User: NSObject {
     var name: String?
     var screenname: String?
     var profileUrl: URL?
+    var profileBgUrl: URL?
     var tagline: String?
+    var followersCount: Double?
+    var followersCountString: String?
+    var followingCount: Double?
+    var followingCountString: String?
+    var userIdString: String?
+    var userColor: String?
     
     var dictionary: NSDictionary?
     
@@ -22,16 +29,48 @@ class User: NSObject {
         name = dictionary["name"] as? String
         screenname = dictionary["screen_name"] as? String
         
-        let profileUrlString = dictionary["profile_image_url_https"] as? String
-        if let profileUrlString = profileUrlString {
+        if let profileUrlString = dictionary["profile_image_url_https"] as? String {
             profileUrl = URL(string: profileUrlString)
+        }
+        if let profileBgString = dictionary["profile_background_image_url_https"] as? String {
+            profileBgUrl = URL(string: profileBgString)
         }
         
         tagline = dictionary["description"] as? String
         
+        followersCount = dictionary["followers_count"] as? Double
+        if followersCount! >= 10000 {
+            let shorten = followersCount! / 1000
+            let rounded = (shorten*10).rounded() / 10
+            followersCountString = String(rounded) + "K"
+            print(followersCountString)
+        } else if followersCount! >= 1000000 {
+            let shorten = followersCount! / 1000000
+            let rounded = (shorten*10).rounded() / 10
+            followersCountString = String(rounded) + "M"
+            print(followersCountString)
+        } else {
+            followersCountString = String(Int(followersCount!.rounded()))
+        }
+        
+        followingCount = dictionary["friends_count"] as? Double
+        if followingCount! >= 10000 {
+            let shorten = followingCount!/1000
+            let rounded = (shorten*10).rounded() / 10
+            followingCountString = String(rounded) + "K"
+        } else if followingCount! >= 1000000 {
+            let shorten = followingCount!/1000000
+            let rounded = (shorten*10).rounded() / 10
+            followingCountString = String(rounded) + "M"
+        } else {
+            followingCountString = String(Int(followingCount!.rounded()))
+        }
+        
+        userIdString = dictionary["id_str"] as? String
+        userColor = dictionary["profile_link_color"] as? String
     }
+    
     static let userDidLogoutNotification = NSNotification.Name(rawValue: "userDidLogout")
-
     static var _currentUser: User?
     
     class var currentUser: User? {

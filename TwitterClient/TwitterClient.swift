@@ -135,12 +135,11 @@ class TwitterClient: BDBOAuth1SessionManager {
         } else {
             print(tweet.retweeted_status)
             if tweet.retweeted_status == nil {
-                originalTweetId = tweet.id_str!
+                originalTweetId = tweet.tweetId_str!
             } else {
-                originalTweetId = (tweet.retweeted_status?.id_str!)!
+                originalTweetId = (tweet.retweeted_status?.tweetId_str!)!
             }
         }
-        
         print("https://api.twitter.com/1.1/statuses/show/\(originalTweetId)json?include_my_retweet=1")
         //TODO: FIGURE OUT WHY THE GET IS FAILING
 //        let fullTweet = get("https://api.twitter.com/1.1/statuses/show/\(originalTweetId)json?include_my_retweet=1", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -152,4 +151,19 @@ class TwitterClient: BDBOAuth1SessionManager {
 //            failure(error)
 //        }
     }
+    
+    func getUserBanner(success: @escaping (NSDictionary) -> (), failure: @escaping (Error) -> (), userId: String) {
+        get("1.1/users/profile_banner.json", parameters: ["user_id": userId], progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            if let bannerDictionary = response as? NSDictionary {
+//                print(bannerDictionary)
+                success(bannerDictionary)
+            }
+            
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        })
+
+    }
+    
 }

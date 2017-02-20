@@ -19,16 +19,18 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var retweetNumLabel: UILabel!
     
     var tweet: Tweet!
+    var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userImageView.setImageWith(tweet.profileUrl!)
+        
+        userImageView.setImageWith(user.profileUrl!)
         userImageView.layer.cornerRadius = 5
         userImageView.clipsToBounds = true
+        usernameLabel.text = user.name
+        screennameLabel.text = "@\(user.screenname!)"
         
         tweetTextLabel.text = tweet.text
-        usernameLabel.text = tweet.name
-        screennameLabel.text = "@\(tweet.screenname!)"
         timestampLabel.text = "\(tweet.timestampDate!), \(tweet.timestampTime!)"
         
         favNumLabel.text = "\(tweet.favoritesCount)"

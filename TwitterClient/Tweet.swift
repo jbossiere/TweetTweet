@@ -10,20 +10,17 @@ import UIKit
 
 class Tweet: NSObject {
     
-    var name: String?
-    var screenname: String?
     var text: String?
     var timestampDate: String?
     var timestampTime: String?
     var retweetCount: Int = 0
     var favoritesCount: Int  = 0
-    var profileUrl: URL?
     var retweeted: Bool?
     var retweeted_status: Tweet?
     var favorited: Bool?
-    var id: Int?
-    var id_str: String?
-    var user: NSDictionary?
+    var tweetId: Int?
+    var tweetId_str: String?
+    var tweetUser: User?
     
     var year: Int?
     var month: Int?
@@ -64,46 +61,25 @@ class Tweet: NSObject {
             }
             timestampDate = "\(month!)/\(day!)/\(year!)"
         }
+    
         
-        let profileUrlString = dictionary["profile_image_url_https"] as? String
-        if let profileUrlString = profileUrlString {
-            profileUrl = URL(string: profileUrlString)
-        }
-        
-        var user = dictionary["user"] as? NSDictionary
-        if let user = user {
-            
-            name = user["name"] as? String
-            screenname = user["screen_name"] as? String
-            
-            let profileUrlString = user["profile_image_url_https"] as? String
-            profileUrl = URL(string: profileUrlString!)
-            
+        if let user = dictionary["user"] as? NSDictionary {
+            tweetUser = User(dictionary: user)
         }
         
         retweeted = dictionary["retweeted"] as? Bool
         retweeted_status = dictionary["retweeted_status"] as? Tweet // Not a field so it's returning nil
-
         favorited = dictionary["favorited"] as? Bool
         
-        id = dictionary["id"] as? Int
-        id_str = dictionary["id_str"] as? String
-        
-        user = dictionary["user"] as? NSDictionary
-        print("user: \(user!)")
-
-        
+        //Used for selecting specific tweet
+        tweetId = dictionary["id"] as? Int
+        tweetId_str = dictionary["id_str"] as? String
     }
     
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet] {
-        var tweets = [Tweet]()
-        
-        for dictionary in dictionaries {
-            let tweet = Tweet(dictionary: dictionary)
-            tweets.append(tweet)
-        }
-        
-        return tweets
+        return dictionaries.map({ (dict) -> Tweet in
+            Tweet(dictionary: dict)
+        })
     }
     
 }

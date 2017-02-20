@@ -21,14 +21,19 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var retweetButton: UIButton!
     
     var tweetId: String?
-    
+
     var tweet: Tweet! {
         didSet {
-            tweetTextLabel.text = tweet.text
-            userImageView.setImageWith(tweet.profileUrl!)
-            nameLabel.text = tweet.name
-            screenNameLabel.text = "@\(tweet.screenname!)"
             
+            //SETTING USER DATA
+            let user = tweet.tweetUser!
+            userImageView.setImageWith(user.profileUrl!)
+            nameLabel.text = user.name
+            screenNameLabel.text = "@\(user.screenname!)"
+            
+            tweetTextLabel.text = tweet.text
+            
+            //SETTING TIME AND DATE OF TWEET
             let date = Date()
             let calendar = Calendar.current
             let year = calendar.component(.year, from: date)
@@ -36,7 +41,6 @@ class TweetCell: UITableViewCell {
             let day = calendar.component(.day, from: date)
             let hour = calendar.component(.hour, from: date)
             let minute = calendar.component(.minute, from: date)
-            
             if tweet.year != year {
                 timestampLabel.text = "• \(tweet.month!)/\(tweet.day!)/\(tweet.year!)"
             } else {
@@ -66,8 +70,7 @@ class TweetCell: UITableViewCell {
                 favorNumLabel.text = "\(tweet.favoritesCount)"
             }
             
-            // Set favorite and retweet icon depending on whether it has been favorited
-            // or retweeted
+            // SETTING FAVORITE AND RETWEET ICON
             if tweet.favorited == true {
                 self.favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon-red"), for: UIControlState.normal)
             } else {
@@ -79,7 +82,8 @@ class TweetCell: UITableViewCell {
                 self.retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon"), for: UIControlState.normal)
             }
             
-            tweetId = tweet.id_str
+            //Used for unfavoriting specific tweet
+            tweetId = tweet.tweetId_str
         }
     }
 
