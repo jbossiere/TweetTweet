@@ -17,6 +17,10 @@ class ComposeViewController: UIViewController {
         print(user.name)
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func onClose(_ sender: Any) {
+    self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -59,6 +59,16 @@
                     <view key="view" contentMode="scaleToFill" id="hc5-Gw-PSV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5d-pM-bfX">
+                                <rect key="frame" x="339" y="28" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="close-icon"/>
+                                <connections>
+                                    <action selector="onClose:" destination="1bn-KR-ylh" eventType="touchUpInside" id="o9u-Kl-NuW"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
@@ -499,7 +509,6 @@
                             <constraint firstItem="Art-hX-2KL" firstAttribute="leading" secondItem="kAC-SX-sWq" secondAttribute="leading" constant="8" id="AYH-Ee-eSK"/>
                             <constraint firstAttribute="trailing" secondItem="0g3-Qs-Wlr" secondAttribute="trailing" id="ITf-lJ-u7a"/>
                             <constraint firstItem="Art-hX-2KL" firstAttribute="top" secondItem="WRa-4f-Pdx" secondAttribute="bottom" constant="8" id="Iyr-ib-XYe"/>
-                            <constraint firstItem="WRa-4f-Pdx" firstAttribute="top" secondItem="izD-H1-L8a" secondAttribute="bottom" constant="100" id="JXJ-Ck-Cr9"/>
                             <constraint firstItem="kCV-w0-zKs" firstAttribute="leading" secondItem="kAC-SX-sWq" secondAttribute="leading" constant="8" id="LKL-se-TUJ"/>
                             <constraint firstItem="wD4-kx-pqV" firstAttribute="leading" secondItem="69Z-R9-9Hj" secondAttribute="trailing" constant="2" id="MDn-3M-B9d"/>
                             <constraint firstItem="69Z-R9-9Hj" firstAttribute="top" secondItem="zpf-0c-bkf" secondAttribute="bottom" constant="15" id="NH2-6c-uZH"/>
@@ -515,6 +524,7 @@
                             <constraint firstItem="wD4-kx-pqV" firstAttribute="top" secondItem="zpf-0c-bkf" secondAttribute="bottom" constant="15" id="pPe-nn-qhq"/>
                             <constraint firstItem="WRa-4f-Pdx" firstAttribute="leading" secondItem="kAC-SX-sWq" secondAttribute="leading" constant="8" id="sKK-P7-ab5"/>
                             <constraint firstItem="9N2-wO-Q2Q" firstAttribute="leading" secondItem="wD4-kx-pqV" secondAttribute="trailing" constant="8" id="u5R-mp-Ugr"/>
+                            <constraint firstItem="WRa-4f-Pdx" firstAttribute="top" secondItem="kAC-SX-sWq" secondAttribute="top" constant="100" id="vgm-ya-lul"/>
                         </constraints>
                     </view>
                     <connections>
@@ -560,6 +570,7 @@
     </scenes>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>
+        <image name="close-icon" width="26" height="24"/>
         <image name="edit-icon" width="30" height="27"/>
         <image name="favor-icon" width="30" height="30"/>
         <image name="message-icon" width="30" height="30"/>
