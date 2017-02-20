@@ -38,21 +38,20 @@ class User: NSObject {
         
         tagline = dictionary["description"] as? String
         
+        //SET UP DISPLAYING FOLLOWERS COUNT
         followersCount = dictionary["followers_count"] as? Double
         if followersCount! >= 10000 {
             let shorten = followersCount! / 1000
             let rounded = (shorten*10).rounded() / 10
             followersCountString = String(rounded) + "K"
-            print(followersCountString)
         } else if followersCount! >= 1000000 {
             let shorten = followersCount! / 1000000
             let rounded = (shorten*10).rounded() / 10
             followersCountString = String(rounded) + "M"
-            print(followersCountString)
         } else {
             followersCountString = String(Int(followersCount!.rounded()))
         }
-        
+        //SET UP DISPLAYING FOLLOWING COUNT
         followingCount = dictionary["friends_count"] as? Double
         if followingCount! >= 10000 {
             let shorten = followingCount!/1000

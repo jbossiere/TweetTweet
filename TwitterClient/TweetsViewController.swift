@@ -18,11 +18,15 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-//        self.navigationController?.navigationBar.setBackgroundImage(‌​UIImage(ciImage: CIImage(color: UIColor.blue.ciColor)), for: .default)
-        self.navigationController?.navigationBar.shadowImage = nil
-        self.navigationController?.navigationBar.isTranslucent = false
+        // ADDING TWITTER LOGO TO NAV BAR
+        let logo = UIImage(named: "TwitterLogo")
+        let titleLogoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        titleLogoImageView.contentMode = .scaleAspectFit
+        titleLogoImageView.image = logo
+        self.navigationItem.titleView = titleLogoImageView
+        self.navigationItem.titleView?.tintColor = UIColor.white
         
+        //PULL TO REFRESH
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshAction(refreshControl :)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
@@ -42,8 +46,15 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         }, failure: { (error: Error) in
             print(error.localizedDescription)
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
 
-        // Do any additional setup after loading the view.
+        let navbarColor = "0x1DA0F2".hexColor
+        self.navigationController?.navigationBar.barTintColor = navbarColor
+        self.navigationController?.navigationBar.shadowImage = nil
+        self.navigationController?.navigationBar.isTranslucent = false
     }
     
     func refreshAction(refreshControl: UIRefreshControl) {
@@ -99,7 +110,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             tweetDetailViewController.tweet = tweet
             tweetDetailViewController.user = tweet.tweetUser
         
-        } else {
+        } else if segue.identifier == "profileSegue" {
             let backButton = UIBarButtonItem()
             backButton.title = ""
             navigationItem.backBarButtonItem = backButton
@@ -113,6 +124,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             let profileViewController = segue.destination as! ProfileViewController
             profileViewController.tweet = tweet
             profileViewController.user = tweet.tweetUser
+        } else if segue.identifier == "composeSegue" {
+            let composeViewController = segue.destination as! ComposeViewController
+            composeViewController.user = User.currentUser
         }
     }
     
