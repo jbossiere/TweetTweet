@@ -10,7 +10,6 @@ import UIKit
 
 class ComposeViewController: UIViewController, UITextViewDelegate {
 
-
     @IBOutlet weak var controlsBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var controlsView: UIView!
     @IBOutlet weak var tweetButton: UIButton!
@@ -45,8 +44,17 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "What's happening?"
-            tweetTextView.textColor = UIColor.lightGray
+            textView.textColor = UIColor.lightGray
         }
+    }
+    
+    //Function that occurs every time new character is typed
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if !textView.text.isEmpty {
+//            placeholderLabel.isHidden = true
+//        }
+        return true
+        
     }
 
     override func didReceiveMemoryWarning() {

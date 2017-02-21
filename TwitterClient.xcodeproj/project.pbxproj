@@ -298,6 +298,7 @@
 				TargetAttributes = {
 					2D7DC13B1E491CE900C1B987 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 53NGYJBFW3;
 						ProvisioningStyle = Automatic;
 					};
 					2D7DC14F1E491CEA00C1B987 = {
@@ -664,7 +665,9 @@
 			baseConfigurationReference = B33910DF9B8F17593E62C4DD /* Pods-TwitterClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 53NGYJBFW3;
 				INFOPLIST_FILE = TwitterClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = julianbossiere.TwitterClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -677,7 +680,9 @@
 			baseConfigurationReference = ECB40BF91839CAB362894870 /* Pods-TwitterClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 53NGYJBFW3;
 				INFOPLIST_FILE = TwitterClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = julianbossiere.TwitterClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
