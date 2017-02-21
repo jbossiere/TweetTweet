@@ -25,6 +25,11 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //MAKES NAVBAR TRANSPARENT
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
 
         userImageView.setImageWith(user.profileUrl!)
         userImageView.layer.cornerRadius = 5
@@ -54,14 +59,6 @@ class ProfileViewController: UIViewController {
             self.userColorBannerView.backgroundColor = bgColor
         }, userId: userId!)
 
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-//        //MAKES NAVBAR TRANSPARENT
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
     }
 
 
