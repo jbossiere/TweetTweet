@@ -46,6 +46,19 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         }, failure: { (error: Error) in
             print(error.localizedDescription)
         })
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshAfterTweeting), name: NSNotification.Name(rawValue: "reload"), object: nil)
+    }
+    
+    func refreshAfterTweeting(notification: Notification) {
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+            
+        }, failure: { (error: Error) in
+            print(error.localizedDescription)
+        })
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

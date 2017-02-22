@@ -102,46 +102,64 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oef-YN-zSc" userLabel="Controls View">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V0q-hQ-NTX">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V0q-hQ-NTX">
                                         <rect key="frame" x="0.0" y="4" width="375" height="1"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="3OT-QZ-p37"/>
+                                        </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="eYz-nb-cdg">
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="eYz-nb-cdg">
                                         <rect key="frame" x="8" y="13" width="150" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="camera-icon" translatesAutoresizingMaskIntoConstraints="NO" id="ui6-iu-m8S">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera-icon" translatesAutoresizingMaskIntoConstraints="NO" id="ui6-iu-m8S">
                                                 <rect key="frame" x="0.0" y="0.5" width="30" height="23"/>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="gif-icon" translatesAutoresizingMaskIntoConstraints="NO" id="fet-7H-hfz">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gif-icon" translatesAutoresizingMaskIntoConstraints="NO" id="fet-7H-hfz">
                                                 <rect key="frame" x="60" y="0.0" width="30" height="24"/>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="stat-icon" translatesAutoresizingMaskIntoConstraints="NO" id="yRw-8P-nl7">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stat-icon" translatesAutoresizingMaskIntoConstraints="NO" id="yRw-8P-nl7">
                                                 <rect key="frame" x="120" y="1" width="30" height="22"/>
                                             </imageView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="ui6-iu-m8S" firstAttribute="top" secondItem="eYz-nb-cdg" secondAttribute="top" id="sG3-1O-coA"/>
+                                        </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHW-Da-nMD">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHW-Da-nMD">
                                         <rect key="frame" x="302" y="10" width="65" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.11428561061620712" green="0.62781572341918945" blue="0.94901937246322632" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="65" id="O3t-f3-WFI"/>
+                                            <constraint firstAttribute="height" constant="31" id="xLA-mm-CRY"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <inset key="contentEdgeInsets" minX="14" minY="8" maxX="14" maxY="8"/>
                                         <state key="normal" title="Tweet">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onTweet:" destination="1bn-KR-ylh" eventType="touchUpInside" id="0vv-He-yIS"/>
+                                        </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="140" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wyv-k3-TtO">
-                                        <rect key="frame" x="265" y="15" width="29" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wyv-k3-TtO">
+                                        <rect key="frame" x="270" y="17" width="24" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="eYz-nb-cdg" firstAttribute="top" secondItem="V0q-hQ-NTX" secondAttribute="bottom" constant="8" id="1HU-KE-GG1"/>
+                                    <constraint firstItem="rHW-Da-nMD" firstAttribute="top" secondItem="V0q-hQ-NTX" secondAttribute="bottom" constant="5" id="Edu-t7-ceG"/>
+                                    <constraint firstItem="rHW-Da-nMD" firstAttribute="centerY" secondItem="oef-YN-zSc" secondAttribute="centerY" id="Q6S-qf-zHM"/>
+                                    <constraint firstItem="rHW-Da-nMD" firstAttribute="leading" secondItem="Wyv-k3-TtO" secondAttribute="trailing" constant="8" id="UtB-3A-cIT"/>
+                                    <constraint firstAttribute="trailing" secondItem="V0q-hQ-NTX" secondAttribute="trailing" id="XXP-ob-OTm"/>
+                                    <constraint firstAttribute="trailing" secondItem="rHW-Da-nMD" secondAttribute="trailing" constant="8" id="b6C-N4-mP0"/>
+                                    <constraint firstItem="eYz-nb-cdg" firstAttribute="leading" secondItem="oef-YN-zSc" secondAttribute="leading" constant="8" id="bot-4o-tqH"/>
+                                    <constraint firstItem="Wyv-k3-TtO" firstAttribute="top" secondItem="V0q-hQ-NTX" secondAttribute="bottom" constant="12" id="kW5-ay-KvR"/>
                                     <constraint firstAttribute="height" constant="50" id="lLv-H3-w0N"/>
+                                    <constraint firstItem="V0q-hQ-NTX" firstAttribute="leading" secondItem="oef-YN-zSc" secondAttribute="leading" id="xE1-sO-Dya"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -192,7 +210,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="115"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AmY-gJ-dFG" id="3Yf-k2-cAj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="114.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Whenever my partner is out of the house" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gry-Xq-7wf">

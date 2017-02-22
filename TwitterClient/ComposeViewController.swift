@@ -29,7 +29,22 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         tweetButton.layer.cornerRadius = 5
     }
     
-    @IBAction func onClose(_ sender: Any) {
+    @IBAction func onTweet(_ sender: Any) {
+        let text = tweetTextView.text
+        let alertController = UIAlertController(title: "Tweet not sent", message: "Whoops! You already said that.", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in }
+        alertController.addAction(OKAction)
+        TwitterClient.sharedInstance?.postTweet(success: {
+            self.onClose(nil)
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reload"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reload"), object: nil)
+        }, failure: { (error: Error) in
+            print("error: \(error.localizedDescription)")
+            self.present(alertController, animated: true)
+        }, status: text!)
+    }
+    
+    @IBAction func onClose(_ sender: Any?) {
         tweetTextView.resignFirstResponder()
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }

@@ -59,7 +59,7 @@ limitations under the License.
 
 # Project 5 - *TweetTweet*
 
-Time spent: **21** hours spent in total
+Time spent: **26** hours spent in total
 
 ## User Stories
 
@@ -69,12 +69,12 @@ The following **required** functionality is completed:
 - [X] Home Timeline: Tapping on a user image should bring up that user's profile page
 - [X] Contains the user header view
 - [X] Contains a section with the users basic stats: # tweets, # following, # followers
-- [ ] Compose Page: User can compose a new tweet by tapping on a compose button.
+- [X] Compose Page: User can compose a new tweet by tapping on a compose button.
 
 The following **optional** features are implemented:
 
 - [ ] When composing, you should have a countdown in the upper right for the tweet limit.
-- [ ] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
+- [X] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
 - [ ] Implement the paging view for the user description.
 - [ ] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
 - [ ] Pulling down the profile page should blur and resize the header image.
@@ -97,7 +97,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/13aukbD.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
